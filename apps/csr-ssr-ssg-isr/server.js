@@ -1,29 +1,31 @@
+import { getServerSideComponent } from './utils'
 import express from 'express'
+import { readdirSync } from 'fs'
+import path from 'path'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
+
+const PAGE_DIR_PATH = path.join(process.cwd(), './pages')
+const pages = readdirSync(PAGE_DIR_PATH).map((file) => file.split('.')[0])
 
 const app = express()
 
 app.use(express.static('public'))
 
-app.get('/', async (req, res) => {
-  const files = await import('./pages/index.js')
+app.get(/.*/, async (req, res) => {
+  const path = req.path.split('/')[1]
+  const page = path ? path : 'index'
 
-  const { getServerSideProps, default: HomeComponent } = files
+  console.log('path', req.path)
 
-  let props = {}
-
-  if (getServerSideProps) {
-    const result = await getServerSideProps({
-      req,
-      res,
-      query: req.query,
-    })
-
-    props = result.props
+  if (!pages.includes(page)) {
+    res.status(200).send(`404 Not Found ${req.path}`)
+    return
   }
 
-  const content = renderToString(<HomeComponent {...props} />)
+  const { Component, props } = await getServerSideComponent(page, req, res)
+
+  const content = renderToString(<Component {...props} />)
 
   res.send(`
 <html>
@@ -35,7 +37,7 @@ app.get('/', async (req, res) => {
     <div id='root'>${content}</div>
     
     <script>
-      window.__DATA__ = ${JSON.stringify(props)}
+      window.__DATA__ = ${JSON.stringify({ props, page })}
     </script>
 
     <script src="/client.entry.js"></script>

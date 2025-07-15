@@ -1,5 +1,12 @@
-import Home from './pages/index'
 import React from 'react'
 import { hydrateRoot } from 'react-dom/client'
 
-hydrateRoot(document.getElementById('root'), <Home {...window.__DATA__} />)
+const { props, page } = window.__DATA__
+
+const importFile = async (path) => {
+  return await import(`./pages/${path}.js`)
+}
+
+const { default: Component } = await importFile(page)
+
+hydrateRoot(document.getElementById('root'), <Component {...props} />)
