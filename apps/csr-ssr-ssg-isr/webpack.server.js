@@ -12,6 +12,9 @@ module.exports = {
     filename: 'server.entry.js',
     path: path.join(__dirname, 'public'),
   },
+  optimization: {
+    splitChunks: false,
+  },
   module: {
     rules: [
       {
