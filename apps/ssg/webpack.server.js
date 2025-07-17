@@ -5,9 +5,11 @@ const path = require('path')
  */
 module.exports = {
   mode: 'development',
-  entry: './client.js',
+  // ! 配置后webpack会加上node环境下的api
+  target: 'node',
+  entry: './server.js',
   output: {
-    filename: 'client.entry.js',
+    filename: 'server.entry.js',
     path: path.join(__dirname, 'public'),
   },
   optimization: {

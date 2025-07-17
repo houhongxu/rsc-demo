@@ -1,19 +1,15 @@
 import App from './app'
-import express from 'express'
-import React from 'react'
+import fs from 'fs'
 import { renderToString } from 'react-dom/server'
-
-const app = express()
-
-app.use(express.static('public'))
 
 const content = renderToString(<App />)
 
-app.get('/', (req, res) =>
-  res.send(`
+fs.writeFileSync(
+  './public/index.html',
+  `
 <html>
   <head>
-    <title>SSR</title>
+    <title>SSG</title>
   </head>
    
   <body>
@@ -22,7 +18,5 @@ app.get('/', (req, res) =>
     <script src="./client.entry.js"></script>
   </body>
 </html>
-`),
+`,
 )
-
-app.listen(3000, () => console.log('listening on http://localhost:3000!'))

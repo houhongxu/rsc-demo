@@ -10,9 +10,6 @@ module.exports = {
     filename: 'client.entry.js',
     path: path.join(__dirname, 'public'),
   },
-  optimization: {
-    splitChunks: false,
-  },
   module: {
     rules: [
       {

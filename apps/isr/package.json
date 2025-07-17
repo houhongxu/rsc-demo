@@ -1,15 +1,16 @@
 {
-  "name": "csr",
-  "description": "csr",
+  "name": "isr",
+  "description": "isr",
   "scripts": {
-    "build": "webpack --config webpack.client.js",
-    "serve": "npm run build && serve ./public -p 8000"
+    "build": "webpack --config webpack.server.js && webpack --config webpack.client.js",
+    "serve": "npm run build && node ./public/server.entry.js"
   },
   "dependencies": {
     "@babel/core": "^7.28.0",
     "@babel/preset-env": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
     "babel-loader": "^10.0.0",
+    "express": "^5.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "serve": "^14.2.4",

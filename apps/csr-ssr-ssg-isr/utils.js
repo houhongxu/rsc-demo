@@ -9,7 +9,6 @@ export async function getServerSideComponent(page, req, res) {
     const result = await getServerSideProps({
       req,
       res,
-      query: req.query,
     })
 
     props = result.props

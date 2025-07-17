@@ -1,12 +1,12 @@
+import { PAGE_DIR_PATH } from './constants'
 import { getServerSideComponent } from './utils'
 import express from 'express'
-import { readdirSync } from 'fs'
+import fs from 'fs'
 import path from 'path'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 
-const PAGE_DIR_PATH = path.join(process.cwd(), './pages')
-const pages = readdirSync(PAGE_DIR_PATH).map((file) => file.split('.')[0])
+const pages = fs.readdirSync(PAGE_DIR_PATH).map((file) => file.split('.')[0])
 
 const app = express()
 
