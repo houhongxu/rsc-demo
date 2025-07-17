@@ -4,14 +4,12 @@ export async function getStaticComponent() {
   const { getStaticProps, default: Component } = files
 
   let props = {}
-  let revalidate = 0
 
   if (getStaticProps) {
     const result = await getStaticProps()
 
     props = result.props
-    revalidate = result.revalidate
   }
 
-  return { Component, props, revalidate }
+  return { Component, props }
 }

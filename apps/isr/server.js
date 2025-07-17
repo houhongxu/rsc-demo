@@ -7,13 +7,14 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 
 let REVALIDATE = 0
+let loading = false
 
 const app = express()
 
 app.use(express.static('public'))
 
-async function build(req, res) {
-  const { Component, props, revalidate } = await getStaticComponent(req, res)
+async function build() {
+  const { Component, props, revalidate } = await getStaticComponent()
 
   REVALIDATE = revalidate
 
@@ -48,8 +49,12 @@ app.get('/', (req, res) => {
     } else {
       const isExpired = Date.now() - stats.mtimeMs > REVALIDATE * 1000
 
-      if (isExpired) {
-        build()
+      if (isExpired && !loading) {
+        loading = true
+
+        build().finally(() => {
+          loading = false
+        })
       }
     }
 

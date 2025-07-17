@@ -1,11 +1,23 @@
 import { useState } from 'react'
 
-export default function App() {
-  const [count, setCount] = useState(0)
+export const getStaticProps = async () => {
+  const res = await fetch(
+    `https://dummyjson.com/users/${Math.floor(Math.random() * 100)}`,
+  )
+
+  const user = await res.json()
+
+  return { props: { user } }
+}
+
+export default function App({ user }) {
+  const [count, setCount] = useState(user.age)
 
   return (
     <div>
-      <h1>Counters {count} times</h1>
+      <h1>
+        {user.username} Counters {count} times
+      </h1>
 
       <button onClick={() => setCount(count + 1)}>Click me</button>
     </div>

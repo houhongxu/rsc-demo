@@ -1,8 +1,11 @@
 import App from './app'
+import { getStaticComponent } from './utils'
 import fs from 'fs'
 import { renderToString } from 'react-dom/server'
 
-const content = renderToString(<App />)
+const { Component, props } = await getStaticComponent()
+
+const content = renderToString(<Component {...props} />)
 
 fs.writeFileSync(
   './public/index.html',
@@ -14,6 +17,10 @@ fs.writeFileSync(
    
   <body>
     <div id='root'>${content}</div>
+    
+    <script>
+      window.__DATA__ = ${JSON.stringify({ props })}
+    </script>
 
     <script src="./client.entry.js"></script>
   </body>

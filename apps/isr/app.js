@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps() {
   const res = await fetch(
     `https://dummyjson.com/users/${Math.floor(Math.random() * 100)}`,
   )
@@ -14,10 +14,15 @@ export async function getStaticProps({ params }) {
 }
 
 export default function App({ user }) {
+  const [count, setCount] = useState(user.age)
+
   return (
-    <>
-      <header>{user.username}</header>
-      <main>{user.age}</main>
-    </>
+    <div>
+      <h1>
+        {user.username} Counters {count} times
+      </h1>
+
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
   )
 }

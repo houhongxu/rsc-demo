@@ -2,4 +2,6 @@ import App from './app'
 import React from 'react'
 import { hydrateRoot } from 'react-dom/client'
 
-hydrateRoot(document.getElementById('root'), <App />)
+const { props } = window.__DATA__
+
+hydrateRoot(document.getElementById('root'), <App {...props} />)

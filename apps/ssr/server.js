@@ -1,4 +1,5 @@
 import App from './app'
+import { getServerSideComponent } from './utils'
 import express from 'express'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
@@ -7,9 +8,11 @@ const app = express()
 
 app.use(express.static('public'))
 
-const content = renderToString(<App />)
+app.get('/', async (req, res) => {
+  const { Component, props } = await getServerSideComponent()
 
-app.get('/', (req, res) =>
+  const content = renderToString(<Component {...props} />)
+
   res.send(`
 <html>
   <head>
@@ -18,11 +21,15 @@ app.get('/', (req, res) =>
    
   <body>
     <div id='root'>${content}</div>
+    
+    <script>
+      window.__DATA__ = ${JSON.stringify({ props })}
+    </script>
 
     <script src="./client.entry.js"></script>
   </body>
 </html>
-`),
-)
+`)
+})
 
 app.listen(3000, () => console.log('listening on http://localhost:3000!'))
