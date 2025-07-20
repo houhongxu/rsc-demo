@@ -18,7 +18,6 @@ export default function App({ user }) {
       <h1>
         {user.username} Counters {count} times
       </h1>
-
       <button onClick={() => setCount(count + 1)}>Click me</button>
     </div>
   )
