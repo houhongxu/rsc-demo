@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export default function App() {
+export default function Page() {
   const [count, setCount] = useState(null)
   const [user, setUser] = useState(null)
 

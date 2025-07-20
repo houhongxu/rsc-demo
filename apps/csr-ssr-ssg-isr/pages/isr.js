@@ -13,7 +13,7 @@ export async function getStaticProps() {
   }
 }
 
-export default function App({ user }) {
+export default function Page({ user }) {
   const [count, setCount] = useState(user.age)
 
   return (

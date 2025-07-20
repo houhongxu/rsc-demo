@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const getServerSideProps = async () => {
+export async function getServerSideProps() {
   const res = await fetch(
     `http://localhost:3001/api/users/${Math.floor(Math.random() * 100)}`,
   )
@@ -10,7 +10,7 @@ export const getServerSideProps = async () => {
   return { props: { user } }
 }
 
-export default function App({ user }) {
+export default function Page({ user }) {
   const [count, setCount] = useState(user.age)
 
   return (
@@ -18,6 +18,7 @@ export default function App({ user }) {
       <h1>
         {user.username} Counters {count} times
       </h1>
+
       <button onClick={() => setCount(count + 1)}>Click me</button>
     </div>
   )

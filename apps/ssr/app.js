@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const getServerSideProps = async () => {
+export async function getServerSideProps() {
   const res = await fetch(
     `http://localhost:3001/api/users/${Math.floor(Math.random() * 100)}`,
   )

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const getStaticProps = async () => {
+export async function getStaticProps() {
   const res = await fetch(
     `http://localhost:3001/api/users/${Math.floor(Math.random() * 100)}`,
   )
@@ -10,7 +10,7 @@ export const getStaticProps = async () => {
   return { props: { user } }
 }
 
-export default function App({ user }) {
+export default function Page({ user }) {
   const [count, setCount] = useState(user.age)
 
   return (
