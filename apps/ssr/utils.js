@@ -1,8 +1,6 @@
+import App, { getServerSideProps } from './app'
+
 export async function getServerSideComponent() {
-  const files = await import('./app.js')
-
-  const { getServerSideProps, default: Component } = files
-
   let props = {}
 
   if (getServerSideProps) {
@@ -11,5 +9,5 @@ export async function getServerSideComponent() {
     props = result.props
   }
 
-  return { Component, props }
+  return { Component: App, props }
 }

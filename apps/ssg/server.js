@@ -1,4 +1,3 @@
-import App from './app'
 import { getStaticComponent } from './utils'
 import fs from 'fs'
 import { renderToString } from 'react-dom/server'

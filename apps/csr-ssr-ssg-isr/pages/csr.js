@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
-export default function Page() {
-  const [count, setCount] = useState(null)
+export default function App() {
+  const [count, setCount] = useState(0)
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -15,17 +15,13 @@ export default function Page() {
 
   return (
     <>
-      {user ? (
-        <div>
-          <h1>
-            {user.username} Counters {count} times
-          </h1>
+      <div>
+        <h1>
+          {user?.username} Counters {count} times
+        </h1>
 
-          <button onClick={() => setCount(count + 1)}>Click me</button>
-        </div>
-      ) : (
-        <div>Loading...</div>
-      )}
+        <button onClick={() => setCount(count + 1)}>Click me</button>
+      </div>
     </>
   )
 }

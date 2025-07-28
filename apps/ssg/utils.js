@@ -1,8 +1,6 @@
+import App, { getStaticProps } from './app'
+
 export async function getStaticComponent() {
-  const files = await import(`./app.js`)
-
-  const { getStaticProps, default: Component } = files
-
   let props = {}
 
   if (getStaticProps) {
@@ -11,5 +9,5 @@ export async function getStaticComponent() {
     props = result.props
   }
 
-  return { Component, props }
+  return { Component: App, props }
 }

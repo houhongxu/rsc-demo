@@ -1,0 +1,20 @@
+{
+  "name": "csr-ssr",
+  "description": "csr-ssr",
+  "scripts": {
+    "build": "webpack --config webpack.client.js && webpack --config webpack.server.js",
+    "serve": "npm run build && node ./public/server.entry.js"
+  },
+  "dependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "babel-loader": "^10.0.0",
+    "express": "^5.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "serve": "^14.2.4",
+    "webpack": "^5.100.1",
+    "webpack-cli": "^6.0.1"
+  }
+}

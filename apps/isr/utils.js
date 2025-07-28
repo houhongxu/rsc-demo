@@ -1,8 +1,6 @@
+import App, { getStaticProps } from './app'
+
 export async function getStaticComponent() {
-  const files = await import(`./app.js`)
-
-  const { getStaticProps, default: Component } = files
-
   let props = {}
   let revalidate = 0
 
@@ -13,5 +11,5 @@ export async function getStaticComponent() {
     revalidate = result.revalidate
   }
 
-  return { Component, props, revalidate }
+  return { Component: App, props, revalidate }
 }
