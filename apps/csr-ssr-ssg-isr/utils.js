@@ -1,6 +1,6 @@
 import { renderToString } from 'react-dom/server'
 
-export async function getPropsAndComponent(page, req, res) {
+export async function getPropsAndComponent(page) {
   const files = await import(`./pages/${page}.js`)
 
   const { getServerSideProps, getStaticProps, default: Component } = files
@@ -15,10 +15,7 @@ export async function getPropsAndComponent(page, req, res) {
     props = result.props
     revalidate = result.revalidate
   } else if (getServerSideProps) {
-    const result = await getServerSideProps({
-      req,
-      res,
-    })
+    const result = await getServerSideProps()
 
     props = result.props
     ssr = true

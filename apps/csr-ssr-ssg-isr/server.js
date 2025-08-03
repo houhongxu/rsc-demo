@@ -15,6 +15,7 @@ let loading = false
 app.get(/.*/, async (req, res) => {
   const reqPath = req.path.split('/')[1]
   const page = reqPath ? reqPath : 'index'
+
   const pages = fs.readdirSync(PAGE_DIR_PATH).map((file) => file.split('.')[0])
 
   if (!pages.includes(page)) {

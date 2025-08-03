@@ -10,8 +10,11 @@ const app = express()
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
+  console.log(req.path)
+
   fs.stat(INDEX_PATH, async (err, stats) => {
     if (err) {
+      console.log('模拟构建')
       await build()
     } else {
       const isExpired =
@@ -20,6 +23,8 @@ app.get('/', (req, res) => {
 
       if (isExpired && !loading) {
         loading = true
+
+        console.log(isExpired ? '重新生成html' : '尚未过期')
 
         build().finally(() => {
           loading = false
