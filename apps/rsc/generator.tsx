@@ -17,5 +17,8 @@ function Router({ url }) {
 }
 
 export async function htmlGenerator(url) {
-  return renderJSXToHTML(<Router url={url} />)
+  let html = await renderJSXToHTML(<Router url={url} />)
+  // 直接拼虽然有些错误，但浏览器会纠正，并正确解析
+  html += `<script type="module" src="/client.js"></script>`
+  return html
 }
